@@ -2,6 +2,10 @@
 
 A library for observing keys of objects.
 
+## Stability
+
+Not. Don't use this. It doesn't even work yet. And the API will be heavily changing in the future.
+
 # Concepts
 
 ## Slots
@@ -99,4 +103,4 @@ For more fine-grained watch-removal, hold onto the return value from `this.watch
 
 # Why aren't you just using signal combinators
 
-Shhhhh. This is part one of a much more elaborate library.
+Shhhhh.
