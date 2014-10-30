@@ -21,8 +21,13 @@ class Slot
     watchers = @_watchers
     key = uniqueKey()
     watchers[key] = [fn, context]
+    removed = false
     return remove: ->
+      if removed
+        throw new Error "Observation already removed!"
       delete watchers[key]
+      removed = true
+      return
 
 newObservation = (target, path, callback, context) ->
   remove = if path.length == 0
