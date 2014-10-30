@@ -6,11 +6,14 @@
   "scripts": {
     "build-min": "browserify slots.coffee -t coffeeify -t uglifyify -o slots.min.js",
     "build-max": "browserify slots.coffee -t coffeeify -o slots.js",
-    "build": "npm run build-min && npm run build-max"
+    "build": "npm run build-min && npm run build-max",
+    "test": "mocha"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
+    "chai": "^1.9.2",
     "coffeeify": "^0.7.0",
+    "mocha": "^2.0.1",
     "uglifyify": "^2.6.0"
   },
   "main": "slots.js"
