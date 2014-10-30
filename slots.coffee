@@ -72,6 +72,7 @@ watch = (target, path, callback, context) ->
   return newObservation target, path, callback, context
 
 module.exports =
+  Slot: Slot
   watch: watch
   mixin:
     watch: (target, path, callback) ->
