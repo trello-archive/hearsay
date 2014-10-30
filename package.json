@@ -1,0 +1,17 @@
+{
+  "name": "Slots",
+  "description": "Library for observing things.",
+  "version": "0.0.1",
+  "author": "Ian Henry <ianthehenry@gmail.com>",
+  "scripts": {
+    "build-min": "browserify slots.coffee -t coffeeify -t uglifyify -o slots.min.js",
+    "build-max": "browserify slots.coffee -t coffeeify -o slots.js",
+    "build": "npm run build-min && npm run build-max"
+  },
+  "devDependencies": {
+    "browserify": "^6.2.0",
+    "coffeeify": "^0.7.0",
+    "uglifyify": "^2.6.0"
+  },
+  "main": "slots.js"
+}
