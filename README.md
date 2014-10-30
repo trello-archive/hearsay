@@ -18,18 +18,20 @@ The mixin form of the API makes this easier if you want to do all of your cleanu
 
 `Slots` is an object that looks like this:
 
-    watch: (Object, (String | Array), Function) -> Observation
+    watch: (Object, (String | Array), Function, Object?) -> Observation
     mixin:
       watch: (Object, (String | Array), Function) -> Observation
       unwatch: () -> ()
-    Slot: Function
+    Slot: "Class"
+
+`Function` refers to a function that takes one argument and returns nothing.
 
 ## `Slot`
 
     new Slot: (Any) -> Slot
     slot.get: () -> Any
     slot.set: (Any) -> Any
-    slot.watch: (Function) -> Observation
+    slot.watch: (Function, Object?) -> Observation
 
 Example usage:
 
@@ -41,21 +43,22 @@ Example usage:
     console.log name.get()
     >> James
 
-    observation = name.watch (current, old) ->
-      console.log "Name changed from #{old} to #{current}"
+    observation = name.watch (val) ->
+      console.log "Name is #{val}"
 
-    >> Name changed from undefined to current
+    >> Name is James
 
     name.set "Mary"
-    >> Name changed from James to Mary
+    >> Name is Mary
     console.log name.get()
     >> Mary
 
     observation.remove()
-
     name.set "Penelope"
     console.log name.get()
     >> Penelope
+
+The second argument to `watch` is the context with which the `callback` will be invoked.
 
 ## `watch`
 
@@ -66,6 +69,8 @@ Example usage:
 Don't forget to `.remove()` the observation returned by `watch`.
 
 You can pass watch either a string of dot-separated keypaths or an array of strings (in case your keys have dots in them).
+
+The last argument is the context with which the callback will be invoked.
 
 ## Mixin
 

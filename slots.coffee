@@ -1,14 +1,28 @@
-mixin Backbone.Events, class Slot
-  constructor: (@val) ->
-  set: (val) ->
-    oldVal = @val
-    @val = val
-    @trigger 'change', val, oldVal
-    return val
-  get: -> @val
-
 uniqueIndex = 0
 uniqueKey = -> String(uniqueIndex++)
+
+class Slot
+  constructor: (@val) ->
+    @_watchers = {}
+
+  get: -> @val
+  set: (val) ->
+    @val = val
+    @_trigger()
+    return val
+
+  _trigger: ->
+    for key, [fn, context] of @_watchers
+      fn.call context, @val
+    return
+
+  watch: (fn, context) ->
+    fn.call context, @val
+    watchers = @_watchers
+    key = uniqueKey()
+    watchers[key] = [fn, context]
+    return remove: ->
+      delete watchers[key]
 
 newObservation = (target, path, callback, context) ->
   remove = if path.length == 0
@@ -29,41 +43,33 @@ newObservation = (target, path, callback, context) ->
 
 finalObservation = (target, key, callback, context) ->
   slot = target[key]
-  slot.on 'change', callback, context
-  callback.call context, slot.get()
-  return ->
-    slot.off 'change', callback, context
-    return
+  remove = slot.watch callback, context
+  return remove
 
-intermediateObservation = (target, [head, tail...], callback) ->
+intermediateObservation = (target, [head, tail...], callback, context) ->
   if tail.length == 0
     throw new Error("No tail!")
 
-  next = null
+  next = { remove: -> }
 
-  makeNext = (current) ->
-    next = newObservation(current, tail, callback, context)
-    return
-
-  intermediateCallback = (current) ->
+  intermediateCallback = (val) ->
     next.remove()
-    makeNext(current)
+    next = newObservation(val, tail, callback, context)
     return
 
   slot = target[head]
-  slot.on 'change', intermediateCallback
-  makeNext slot.get()
+  remove = slot.watch intermediateCallback, context
 
   return ->
-    slot.off 'change', intermediateCallback
+    remove()
     next.remove()
     return
 
-watch = (target, path, callback) ->
+watch = (target, path, callback, context) ->
   if typeof path == 'string'
     path = path.split('.')
 
-  return newObservation(target, path, callback)
+  return newObservation(target, path, callback, context)
 
 module.exports =
   watch: watch
@@ -74,7 +80,7 @@ module.exports =
         path = target
         target = @
 
-      observation = watch target, path, callback
+      observation = watch target, path, callback, this
 
       observationSet = (@_slot_observations ?= {})
       key = uniqueKey()
