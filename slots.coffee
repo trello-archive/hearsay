@@ -26,7 +26,7 @@ class Slot
 
 newObservation = (target, path, callback, context) ->
   remove = if path.length == 0
-    throw new Error("No path!")
+    throw new Error "No path!"
   else if path.length == 1
     finalObservation target, path[0], callback, context
   else
@@ -48,13 +48,13 @@ finalObservation = (target, key, callback, context) ->
 
 intermediateObservation = (target, [head, tail...], callback, context) ->
   if tail.length == 0
-    throw new Error("No tail!")
+    throw new Error "No tail!"
 
   next = { remove: -> }
 
   intermediateCallback = (val) ->
     next.remove()
-    next = newObservation(val, tail, callback, context)
+    next = newObservation val, tail, callback, context
     return
 
   slot = target[head]
@@ -67,9 +67,9 @@ intermediateObservation = (target, [head, tail...], callback, context) ->
 
 watch = (target, path, callback, context) ->
   if typeof path == 'string'
-    path = path.split('.')
+    path = path.split '.'
 
-  return newObservation(target, path, callback, context)
+  return newObservation target, path, callback, context
 
 module.exports =
   watch: watch
