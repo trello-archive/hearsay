@@ -1,4 +1,4 @@
-{ Slot } = require 'slots'
+{ Slot } = require 'hearsay'
 
 class Person
   constructor: (name, lover) ->

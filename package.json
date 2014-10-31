@@ -1,11 +1,11 @@
 {
-  "name": "Slots",
+  "name": "hearsay",
   "description": "Library for observing things.",
   "version": "0.0.1",
   "author": "Ian Henry <ianthehenry@gmail.com>",
   "scripts": {
-    "build-min": "browserify slots.coffee -t coffeeify -t uglifyify -o slots.min.js",
-    "build-max": "browserify slots.coffee -t coffeeify -o slots.js",
+    "build-min": "browserify hearsay.coffee -t coffeeify -t uglifyify -o hearsay.min.js",
+    "build-max": "browserify hearsay.coffee -t coffeeify -o hearsay.js",
     "build": "npm run build-min && npm run build-max",
     "test": "mocha"
   },
@@ -16,5 +16,5 @@
     "mocha": "^2.0.1",
     "uglifyify": "^2.6.0"
   },
-  "main": "slots.js"
+  "main": "hearsay.js"
 }

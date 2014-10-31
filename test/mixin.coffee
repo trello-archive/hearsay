@@ -1,5 +1,5 @@
 { assert } = require 'chai'
-{ Slot, mixin: slotsMixin } = require 'slots'
+Hearsay = require 'hearsay'
 Person = require 'person'
 
 mixin = (obj, klass) ->
@@ -11,7 +11,7 @@ describe "Mixin", ->
   it "tracks watches", ->
     names = []
 
-    mixin slotsMixin, class Manager
+    mixin Hearsay.mixin, class Manager
       spyOn: (person) ->
         @watch person, 'name', (name) ->
           names.push name
@@ -33,7 +33,7 @@ describe "Mixin", ->
   it "allows explicit unwatching", ->
     names = []
 
-    mixin slotsMixin, class Manager
+    mixin Hearsay.mixin, class Manager
       spyOn: (person) ->
         return @watch person, 'name', (name) ->
           names.push name
@@ -54,7 +54,7 @@ describe "Mixin", ->
     assert.deepEqual names, ["John", "Jonathan", "Mark", "Matthew"]
 
   it "uses this as the context", ->
-    mixin slotsMixin, class Manager
+    mixin Hearsay.mixin, class Manager
       constructor: ->
         @names = []
       spyOn: (person) ->
@@ -69,9 +69,9 @@ describe "Mixin", ->
     assert.deepEqual manager.names, ["John", "Jonathan"]
 
   it "defaults this as the target", ->
-    mixin slotsMixin, class Manager
+    mixin Hearsay.mixin, class Manager
       constructor: ->
-        @name = new Slot("Jennifer")
+        @name = new Hearsay.Slot("Jennifer")
         @names = []
         @watch 'name', (name) ->
           @names.push name

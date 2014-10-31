@@ -1,4 +1,4 @@
-# Slots
+# Hearsay.js
 
 A library for observing keys of objects.
 
@@ -28,7 +28,7 @@ The mixin form of the API makes this easier if you want to do all of your cleanu
 
 # API
 
-`Slots` is an object that looks like this:
+Hearsay exports an object that looks like this:
 
     watch: (Object, (String | Array), Function, Object?) -> Observation
     mixin:
