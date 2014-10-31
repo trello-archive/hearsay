@@ -4,17 +4,19 @@
   "version": "0.0.1",
   "author": "Ian Henry <ianthehenry@gmail.com>",
   "scripts": {
-    "build-min": "browserify hearsay.coffee -t coffeeify -t uglifyify -o hearsay.min.js",
-    "build-max": "browserify hearsay.coffee -t coffeeify -o hearsay.js",
-    "build": "npm run build-min && npm run build-max",
+    "build-browser-min": "mkdir browser; browserify src/hearsay.coffee --standalone Hearsay -t coffeeify -t uglifyify -o browser/hearsay.min.js",
+    "build-browser-max": "mkdir browser; browserify src/hearsay.coffee --standalone Hearsay -t coffeeify -o browser/hearsay.js",
+    "build-npm": "coffee -b -c -o lib/ --no-header src/*",
+    "build": "npm run build-browser-min && npm run build-browser-max && npm run build-npm",
     "test": "mocha"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
     "chai": "^1.9.2",
+    "coffee-script": "^1.8.0",
     "coffeeify": "^0.7.0",
     "mocha": "^2.0.1",
     "uglifyify": "^2.6.0"
   },
-  "main": "hearsay.js"
+  "main": "lib/hearsay.js"
 }
