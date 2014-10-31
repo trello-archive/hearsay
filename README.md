@@ -4,7 +4,15 @@ A library for observing keys of objects.
 
 ## Stability
 
-Not. Don't use this. It doesn't even work yet. And the API will be heavily changing in the future.
+No. Don't use this. It doesn't even work yet. And the API will be heavily changing in the future.
+
+## Shortcomings
+
+**It does not handle cyclic observations**. It *will* at *some* point in the future. But as this was a "I need to start using this" sort of project I didn't bother to do that part right. As long as you never have an observation cycle, it will just work totally fine. By which I mean:
+
+A `person` object has a slot, `boss`, that can hold a person. And that person becomes their own boss.
+
+You `watch person, 'boss.name'` and everything will work if the person's boss changes or the person's name changes... but if you `watch person, 'boss.boss.name'`, you will get unexpected behavior if the person's `boss` slot changes.
 
 # Concepts
 
@@ -28,7 +36,7 @@ The mixin form of the API makes this easier if you want to do all of your cleanu
       unwatch: () -> ()
     Slot: "Class"
 
-`Function` refers to a function that takes one argument and returns nothing.
+`Function` refers to a function that takes one argument and returns nothing. The return value is ignored, so if you do return something it won't yell at you or anything. But you don't need to. Doesn't make sense.
 
 ## `Slot`
 
@@ -49,7 +57,6 @@ Example usage:
 
     observation = name.watch (val) ->
       console.log "Name is #{val}"
-
     >> Name is James
 
     name.set "Mary"
