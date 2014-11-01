@@ -29,9 +29,6 @@ allowFirst = (pred) ->
       pred()
 
 newObservation = (target, path, callback, context, pred) ->
-  if path.length == 0
-    throw new Error "No path!"
-
   remove = if path.length == 1
     finalObservation target, path[0], callback, context, pred
   else
@@ -55,9 +52,6 @@ finalObservation = (target, key, callback, context, pred) ->
   return remove
 
 intermediateObservation = (target, [head, tail...], callback, context, pred) ->
-  if tail.length == 0
-    throw new Error "No tail!"
-
   next = { remove: -> }
   slot = target[head]
 
@@ -79,5 +73,8 @@ intermediateObservation = (target, [head, tail...], callback, context, pred) ->
 module.exports = (target, path, callback, context) ->
   if typeof path == 'string'
     path = path.split '.'
+
+  if path.length == 0
+    throw new Error "No path to observe!"
 
   return newObservation target, path, callback, context, -> true

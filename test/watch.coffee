@@ -1,5 +1,5 @@
 { assert } = require 'chai'
-{ watch } = require 'hearsay'
+{ watch, Slot } = require 'hearsay'
 Person = require 'person'
 
 describe "Watch", ->
@@ -17,6 +17,21 @@ describe "Watch", ->
     observation.remove()
 
     assert.deepEqual names, ["John", "Jonathan", "John"]
+
+  it "works with array paths", ->
+    john = new Person("John")
+    john['.'] = dotSlot = new Slot("!")
+
+    dots = []
+    observation = watch john, ['.'], (dot) ->
+      dots.push dot
+
+    dotSlot.set "?"
+    assert.deepEqual dots, ["!", "?"]
+
+  it "requires a path", ->
+    john = new Person("John")
+    assert.throws -> watch john, [], ->
 
   describe "nested observation", ->
     it "triggers on terminal changes", ->
