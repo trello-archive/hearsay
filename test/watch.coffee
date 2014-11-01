@@ -53,9 +53,6 @@ describe "Watch", ->
       assert.deepEqual names, ["John", "Mary", "Mary Jane"]
 
     it "respects love triangles", ->
-      # This is known not to work. Don't do this.
-      # I'll fix it one day.
-      return
       john = new Person("John")
       mark = new Person("Mark", john)
       mary = new Person("Mary", mark)
@@ -69,4 +66,23 @@ describe "Watch", ->
       mary.lover.set john
 
       assert.deepEqual names, ["Mark", "John"]
+
+    it "respects a fickle sort of cyclic romance", ->
+      john = new Person("John")
+      john.lover.set john
+
+      mary = new Person("Mary")
+      mary.lover.set mary
+
+      names = []
+
+      watch john, 'lover.lover.lover.lover.lover.lover.lover.lover.name', (name) ->
+        names.push name
+
+      john.lover.set john
+      john.lover.set mary
+      john.lover.set john
+      john.lover.set mary
+
+      assert.deepEqual names, ["John", "John", "Mary", "John", "Mary"]
 

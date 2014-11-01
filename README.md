@@ -1,18 +1,6 @@
 # Hearsay.js
 
-A library for observing keys of objects.
-
-## Stability
-
-No. Don't use this. It doesn't even work yet. And the API will be heavily changing in the future.
-
-## Shortcomings
-
-**It does not handle cyclic observations**. It *will* at *some* point in the future. But as this was a "I need to start using this" sort of project I didn't bother to do that part right. As long as you never have an observation cycle, it will just work totally fine. By which I mean:
-
-A `person` object has a slot, `boss`, that can hold a person. And that person becomes their own boss.
-
-You `watch person, 'boss.name'` and everything will work if the person's boss changes or the person's name changes... but if you `watch person, 'boss.boss.name'`, you will get unexpected behavior if the person's `boss` slot changes.
+A library for observing keys of objects. Don't use it. The API is in severe flux. It's not even published yet. You can't use it.
 
 # Concepts
 
