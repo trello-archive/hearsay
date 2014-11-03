@@ -1,5 +1,6 @@
 { assert } = require 'chai'
-{ watch, Slot } = require 'hearsay'
+Slot = require 'hearsay/slot'
+watch = require 'hearsay/watch'
 Person = require 'person'
 
 describe "Watch", ->

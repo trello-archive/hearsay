@@ -1,5 +1,5 @@
 { assert } = require 'chai'
-{ Slot } = require 'hearsay'
+Slot = require 'hearsay/slot'
 
 describe "Slot", ->
   it "returns initial value", ->
