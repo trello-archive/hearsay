@@ -18,5 +18,9 @@
     "mocha": "^2.0.1",
     "uglifyify": "^2.6.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/trello/hearsay.git"
+  },
   "main": "lib/hearsay.js"
 }
