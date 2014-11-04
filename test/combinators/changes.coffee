@@ -19,4 +19,3 @@ describe "change", ->
     assert.deepEqual vals, [[1, 2], [2, 3], [3, 4]]
 
     subscription.remove()
-

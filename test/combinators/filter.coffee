@@ -24,4 +24,3 @@ describe "filter", ->
     assert.deepEqual vals, [2, 4]
 
     subscription.remove()
-

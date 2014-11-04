@@ -14,6 +14,8 @@ register
   map: require './combinators/map'
   filter: require './combinators/filter'
   latest: require './combinators/latest'
+  distinct: require './combinators/distinct'
+  changes: require './combinators/changes'
 
 module.exports =
   Signal: Signal
