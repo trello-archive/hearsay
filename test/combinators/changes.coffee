@@ -3,7 +3,7 @@ Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'
 
-describe "change", ->
+describe "changes", ->
   it "only sends changes", ->
     slot = new Slot(1)
     vals = []
