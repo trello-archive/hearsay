@@ -2,8 +2,8 @@ uniqueKey = require './uniqueKey'
 once = require './once'
 
 module.exports = class Signal
-  constructor: (generator) ->
-    generator @_send.bind(@)
+  constructor: (source) ->
+    source @_send.bind(@)
     @_subscriptions = {}
 
   _send: (val) ->
@@ -19,3 +19,5 @@ module.exports = class Signal
     return remove: once 'Already disposed!', ->
       delete watchers[key]
       return
+
+  derive: (source) -> new Signal source
