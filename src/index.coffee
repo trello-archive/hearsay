@@ -7,7 +7,7 @@ register = (map) ->
       throw new Error "You can't register methods that begin with an underscore!"
     if name of proto
       throw new Error "#{name} is already defined!"
-    proto[name] = -> method.call(this, arguments...)
+    proto[name] = method
   return
 
 register

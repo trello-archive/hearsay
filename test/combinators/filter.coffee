@@ -7,7 +7,7 @@ describe "filter", ->
   it "works", ->
     emitter = new Emitter()
     vals = []
-    filtered = filter(emitter, (a) -> a % 2 == 0)
+    filtered = filter.call(emitter, (a) -> a % 2 == 0)
 
     subscription = filtered.subscribe (val) ->
       vals.push val

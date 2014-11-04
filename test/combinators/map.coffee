@@ -7,7 +7,7 @@ describe "map", ->
   it "preserves continuous signals", ->
     slot = new Slot(1)
     vals = []
-    mapped = map(slot, (a) -> a * 2)
+    mapped = map.call(slot, (a) -> a * 2)
 
     subscription = mapped.subscribe (val) ->
       vals.push val

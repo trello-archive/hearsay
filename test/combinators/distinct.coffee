@@ -8,7 +8,7 @@ describe "distinct", ->
     slot = new Slot(1)
     vals = []
 
-    subscription = distinct(slot).subscribe (val) ->
+    subscription = distinct.call(slot).subscribe (val) ->
       vals.push val
 
     slot.set 1
@@ -28,7 +28,7 @@ describe "distinct", ->
     slot = new Slot([1])
     vals = []
 
-    subscription = distinct(slot, ([a], [b]) -> a == b).subscribe (val) ->
+    subscription = distinct.call(slot, ([a], [b]) -> a == b).subscribe (val) ->
       vals.push val
 
     slot.set [1]

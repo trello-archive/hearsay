@@ -8,7 +8,7 @@ describe "change", ->
     slot = new Slot(1)
     vals = []
 
-    subscription = changes(slot).subscribe (val) ->
+    subscription = changes.call(slot).subscribe (val) ->
       vals.push val
 
     assert.deepEqual vals, []

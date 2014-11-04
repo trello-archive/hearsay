@@ -2,7 +2,8 @@ Signal = require '../signal'
 
 magicInitialValue = {}
 
-module.exports = (signal) ->
+module.exports = ->
+  signal = this
   previousValue = magicInitialValue
   new Signal (send) ->
     signal.subscribe (val) ->

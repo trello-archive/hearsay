@@ -9,7 +9,7 @@ describe "latest", ->
     outer = new Slot(name)
     vals = []
 
-    subscription = latest(outer).subscribe (val) ->
+    subscription = latest.call(outer).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
@@ -24,7 +24,7 @@ describe "latest", ->
     outer = new Slot(name)
     vals = []
 
-    subscription = latest(outer).subscribe (val) ->
+    subscription = latest.call(outer).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 

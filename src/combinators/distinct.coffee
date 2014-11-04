@@ -4,7 +4,8 @@ magicInitialValue = {}
 
 jsEq = (a, b) -> a == b
 
-module.exports = (signal, eq = jsEq) ->
+module.exports = (eq = jsEq) ->
+  signal = this
   prev = magicInitialValue
   signal.derive (send) ->
     signal.subscribe (val) ->

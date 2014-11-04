@@ -12,7 +12,8 @@ magicInitialValue = {}
 
 isContinuous = (signal) -> signal instanceof ContinuousSignal
 
-module.exports = (outerSignal) ->
+module.exports = ->
+  outerSignal = this
   generator = (send) ->
     currentSubscription = magicInitialValue
     outerSignal.subscribe (innerSignal) ->
