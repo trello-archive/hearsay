@@ -22,6 +22,7 @@ registerMethods
   changes: require './combinators/changes'
 
 registerFunctions
+  switch: require './combinators/switch'
   combine: require './combinators/combine'
 
 module.exports =
