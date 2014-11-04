@@ -1,4 +1,4 @@
-Signal = require './signal'
+Signal = require 'hearsay/signal'
 
 module.exports = (signal, pred) ->
   new Signal (send) ->

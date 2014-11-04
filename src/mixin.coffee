@@ -1,5 +1,5 @@
-uniqueKey = require './uniqueKey'
-watch = require './watch'
+uniqueKey = require 'hearsay/uniqueKey'
+watch = require 'hearsay/watch'
 
 module.exports =
   watch: (target, path, callback) ->

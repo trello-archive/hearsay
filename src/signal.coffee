@@ -1,5 +1,5 @@
-uniqueKey = require './uniqueKey'
-once = require './once'
+uniqueKey = require 'hearsay/uniqueKey'
+once = require 'hearsay/once'
 
 module.exports = class Signal
   constructor: (source) ->
