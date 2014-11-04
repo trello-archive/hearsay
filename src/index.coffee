@@ -1,4 +1,4 @@
 module.exports =
-  Slot: require 'hearsay/slot'
-  watch: require 'hearsay/watch'
-  mixin: require 'hearsay/mixin'
+  Slot: require './slot'
+  watch: require './watch'
+  mixin: require './mixin'

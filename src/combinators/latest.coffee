@@ -1,5 +1,5 @@
-Signal = require 'hearsay/signal'
-ContinuousSignal = require 'hearsay/continuous-signal'
+Signal = require '../signal'
+ContinuousSignal = require '../continuous-signal'
 
 # If the outer signal is discrete, this produces a discrete signal. Always.
 # If the outer signal is continuous, it will produce a continuous signal *if*

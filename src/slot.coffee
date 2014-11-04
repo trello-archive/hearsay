@@ -1,5 +1,5 @@
-uniqueKey = require 'hearsay/uniqueKey'
-ContinuousSignal = require 'hearsay/continuous-signal'
+uniqueKey = require './utils/uniqueKey'
+ContinuousSignal = require './continuous-signal'
 
 module.exports = class Slot extends ContinuousSignal
   constructor: (val) ->

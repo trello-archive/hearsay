@@ -1,4 +1,4 @@
-Signal = require 'hearsay/signal'
+Signal = require './signal'
 
 magicInitialValue = {}
 
