@@ -1,29 +1,9 @@
 uniqueKey = require './uniqueKey'
+ContinuousSignal = require './continuous-signal'
 
-module.exports = class Slot
-  constructor: (@val) ->
-    @_watchers = {}
-
-  get: -> @val
+module.exports = class Slot extends ContinuousSignal
+  constructor: (val) ->
+    super val, (@_send) =>
   set: (val) ->
-    @val = val
-    @_trigger()
+    @_send(val)
     return val
-
-  _trigger: ->
-    for key, [fn, context] of @_watchers
-      fn.call context, @val
-    return
-
-  watch: (fn, context) ->
-    fn.call context, @val
-    watchers = @_watchers
-    key = uniqueKey()
-    watchers[key] = [fn, context]
-    removed = false
-    return remove: ->
-      if removed
-        throw new Error "Observation already removed!"
-      delete watchers[key]
-      removed = true
-      return

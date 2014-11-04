@@ -4,9 +4,31 @@ A library for observing keys of objects. Don't use it. The API is in severe flux
 
 # Concepts
 
+## Signals
+
+A signal is a stream of events. Signals never complete. There are two types of signals, continuous and discrete.
+
+### Continuous Signals
+
+Continuous signals have a "current value," and when you subscribe to a continuous signal the callback is triggered immediately.
+
+Continuous signals have an extra method, `.get()`, which returns the current value of the signal.
+
+Only continuous signals can be sampled. You can promote discrete signals into continuous signals with `.cache`. This isn't actually implemented yet and the name might change.
+
+Example: value of a `textarea`.
+
+### Discrete Signals
+
+Discrete signals do not send events immediately, but only when a value becomes available. You can't discrete continuous signals with `.get()` or `.sample()`.
+
+Example: click events.
+
+You can convert a discrete signal into a continuous signal with `.cache` or `.remember` or something like that.
+
 ## Slots
 
-A slot is a container for a value. It has methods for mutating that value, and for observing changes to that value.
+A slot is a container for a value. You can think of it as a mutable continuous signal -- a signal with a current value that can be changed by invoking the `.set` method.
 
 ## Observations
 
@@ -31,7 +53,7 @@ Hearsay exports an object that looks like this:
     new Slot: (Any) -> Slot
     slot.get: () -> Any
     slot.set: (Any) -> Any
-    slot.watch: (Function, Object?) -> Observation
+    slot.subscribe: (Function, Object?) -> Observation
 
 Example usage:
 
@@ -43,7 +65,7 @@ Example usage:
     console.log name.get()
     >> James
 
-    observation = name.watch (val) ->
+    observation = name.subscribe (val) ->
       console.log "Name is #{val}"
     >> Name is James
 
@@ -57,7 +79,7 @@ Example usage:
     console.log name.get()
     >> Penelope
 
-The second argument to `watch` is the context with which the `callback` will be invoked.
+The second argument to `subscribe` is the context with which the `callback` will be invoked.
 
 ## `watch`
 
@@ -67,7 +89,7 @@ The second argument to `watch` is the context with which the `callback` will be 
 
 Don't forget to `.remove()` the observation returned by `watch`.
 
-You can pass watch either a string of dot-separated keypaths or an array of strings (in case your keys have dots in them).
+You can pass `watch` either a string of dot-separated keypaths or an array of strings (in case your keys have dots in them).
 
 The last argument is the context with which the callback will be invoked.
 
@@ -81,20 +103,20 @@ This will introduce the `watch` and `unwatch` methods, and a variable used to ma
 
 Usage:
 
-    this.watch(target, 'foo.bar.baz', callback)
+    this.subscribe(target, 'foo.bar.baz', callback)
 
 Adds a nested watcher. `callback` is always invoked with `this` as the context.
 
 If `target` is omitted, `this` is assumed. Thus the following two lines are equivalent:
 
-    this.watch('foo.bar.baz', callback)
-    this.watch(this, 'foo.bar.baz', callback)
+    this.subscribe('foo.bar.baz', callback)
+    this.subscribe(this, 'foo.bar.baz', callback)
 
 ## `unwatch`
 
-Removes all observations created via `this.watch`.
+Removes all observations created via `this.subscribe`.
 
-For more fine-grained watch-removal, hold onto the return value from `this.watch` and invoke its `remove` method.
+For more fine-grained watch-removal, hold onto the return value from `this.subscribe` and invoke its `remove` method.
 
 # Why aren't you just using signal combinators
 

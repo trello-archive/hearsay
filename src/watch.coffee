@@ -9,9 +9,9 @@
 # already. If so, it simply doesn't fire.
 
 # `allowFirst` exists to distinguish between the initial callback invocation
-# (since `slot.watch` calls the callback immediately) and subsequent invocations
-# by `slot.set`. We only want to guard the latter case, or else the observation
-# stack won't be set up correctly.
+# (since `slot.subscribe` calls the callback immediately) and subsequent
+# invocations by `slot.set`. We only want to guard the latter case, or else the
+# observation stack won't be set up correctly.
 
 guarded = (fn, pred) ->
   ->
@@ -48,7 +48,7 @@ finalObservation = (target, key, callback, context, pred) ->
 
   guardedCallback = guarded callback, allowFirst -> pred slot
 
-  { remove } = slot.watch guardedCallback, context
+  { remove } = slot.subscribe guardedCallback, context
   return remove
 
 intermediateObservation = (target, [head, tail...], callback, context, pred) ->
@@ -63,7 +63,7 @@ intermediateObservation = (target, [head, tail...], callback, context, pred) ->
 
   guardedCallback = guarded intermediateCallback, allowFirst -> pred slot
 
-  { remove } = slot.watch guardedCallback, context
+  { remove } = slot.subscribe guardedCallback, context
 
   return ->
     remove()
