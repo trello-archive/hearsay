@@ -10,7 +10,7 @@ module.exports =
 
     observation = watch target, path, callback, this
 
-    observationSet = (@_slot_observations ?= {})
+    observationSet = (@_hearsay_observations ?= {})
     key = uniqueKey()
     observationSet[key] = observation
 
@@ -19,7 +19,7 @@ module.exports =
       delete observationSet[key]
 
   unwatch: ->
-    for key, observation of @_slot_observations
+    for key, observation of @_hearsay_observations
       observation.remove()
-    delete @_slot_observations
+    delete @_hearsay_observations
     return

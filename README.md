@@ -75,7 +75,7 @@ The last argument is the context with which the callback will be invoked.
 
 A potentially nicer way to use Slots is as a mixin on your objects, as it can make cleanup easier.
 
-This will introduce the `watch` and `unwatch` methods, and a variable used to maintain state called `_slot_observations`.
+This will introduce the `watch` and `unwatch` methods, and a variable used to maintain state called `_hearsay_observations`.
 
 ## `watch`
 
