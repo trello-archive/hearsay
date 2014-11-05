@@ -20,6 +20,9 @@ registerMethods
   latest: require './combinators/latest'
   distinct: require './combinators/distinct'
   changes: require './combinators/changes'
+  and: require './combinators/and'
+  or: require './combinators/or'
+  not: require './combinators/not'
 
 registerFunctions
   switch: require './combinators/switch'
