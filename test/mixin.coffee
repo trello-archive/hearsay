@@ -32,6 +32,21 @@ describe "Mixin", ->
       john.name.set "John"
       assert.deepEqual names, ["John", "Jonathan", "Mark"]
 
+    it "uses this as the context", ->
+      mixin HearsayMixin, class Manager
+        constructor: ->
+          @names = []
+        spyOn: (person) ->
+          @subscribe person.name, (name) ->
+            @names.push name
+
+      manager = new Manager()
+      john = new Person("John")
+      manager.spyOn john
+      john.name.set "Jonathan"
+      manager.unsubscribe()
+      assert.deepEqual manager.names, ["John", "Jonathan"]
+
   describe "watch", ->
     it "tracks watches", ->
       names = []

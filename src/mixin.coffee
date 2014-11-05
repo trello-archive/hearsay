@@ -11,7 +11,7 @@ remember = (target, observation) ->
 
 module.exports =
   subscribe: (signal, callback) ->
-    remember this, signal.subscribe(callback)
+    remember this, signal.subscribe(callback, this)
 
   watch: (target, path, callback) ->
     if arguments.length == 2
