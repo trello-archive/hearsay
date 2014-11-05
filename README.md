@@ -97,27 +97,23 @@ The last argument is the context with which the callback will be invoked.
 
 A potentially nicer way to use Slots is as a mixin on your objects, as it can make cleanup easier.
 
-This will introduce the `watch` and `unwatch` methods, and a variable used to maintain state called `_hearsay_observations`.
+This will introduce the `subscribe`, `watch`, and `unsubscribe` methods. It will also attach the key `_hearsay_observations` that is used to track private state.
 
 ## `watch`
 
 Usage:
 
-    this.subscribe(target, 'foo.bar.baz', callback)
+    this.watch(target, 'foo.bar.baz', callback)
 
 Adds a nested watcher. `callback` is always invoked with `this` as the context.
 
 If `target` is omitted, `this` is assumed. Thus the following two lines are equivalent:
 
-    this.subscribe('foo.bar.baz', callback)
-    this.subscribe(this, 'foo.bar.baz', callback)
+    this.watch('foo.bar.baz', callback)
+    this.watch(this, 'foo.bar.baz', callback)
 
-## `unwatch`
+## `unsubscribe`
 
-Removes all observations created via `this.subscribe`.
+Removes all observations created via `this.subscribe` *or* `this.watch`.
 
-For more fine-grained watch-removal, hold onto the return value from `this.subscribe` and invoke its `remove` method.
-
-# Why aren't you just using signal combinators
-
-Shhhhh.
+For more fine-grained cleanup, hold onto the return value from `this.subscribe` or `this.watch` and invoke its `remove` method.
