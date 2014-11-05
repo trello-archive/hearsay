@@ -1,6 +1,6 @@
 # Hearsay.js
 
-A library for observing keys of objects. Don't use it. The API is in severe flux. It's not even published yet. You can't use it.
+Hearsay is not stable enough for real world use. The implementation is incomplete, the documentation is laughable, and interface is still in flux.
 
 # Concepts
 
