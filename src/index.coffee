@@ -15,19 +15,19 @@ registerFunctions = (map) ->
   register(Signal, map)
 
 registerMethods
-  map: require './combinators/map'
-  filter: require './combinators/filter'
-  latest: require './combinators/latest'
-  distinct: require './combinators/distinct'
-  changes: require './combinators/changes'
-  and: require './combinators/and'
-  or: require './combinators/or'
-  not: require './combinators/not'
+  map: require './methods/map'
+  filter: require './methods/filter'
+  latest: require './methods/latest'
+  distinct: require './methods/distinct'
+  changes: require './methods/changes'
+  and: require './methods/and'
+  or: require './methods/or'
+  not: require './methods/not'
 
 registerFunctions
-  switch: require './combinators/switch'
-  combine: require './combinators/combine'
-  const: require './combinators/const'
+  switch: require './functions/switch'
+  combine: require './functions/combine'
+  const: require './functions/const'
 
 module.exports =
   Signal: Signal

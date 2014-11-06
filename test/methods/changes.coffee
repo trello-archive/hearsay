@@ -1,4 +1,4 @@
-changes = require 'hearsay/combinators/changes'
+changes = require 'hearsay/methods/changes'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

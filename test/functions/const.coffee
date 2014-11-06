@@ -1,4 +1,4 @@
-constFn = require 'hearsay/combinators/const'
+constFn = require 'hearsay/functions/const'
 { assert } = require 'chai'
 
 describe "const", ->

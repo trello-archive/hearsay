@@ -1,4 +1,4 @@
-distinct = require 'hearsay/combinators/distinct'
+distinct = require 'hearsay/methods/distinct'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

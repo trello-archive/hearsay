@@ -1,4 +1,4 @@
-combine = require 'hearsay/combinators/combine'
+combine = require 'hearsay/functions/combine'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

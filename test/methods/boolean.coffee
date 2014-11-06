@@ -1,6 +1,6 @@
-andFn = require 'hearsay/combinators/and'
-orFn = require 'hearsay/combinators/or'
-notFn = require 'hearsay/combinators/not'
+andFn = require 'hearsay/methods/and'
+orFn = require 'hearsay/methods/or'
+notFn = require 'hearsay/methods/not'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'
 

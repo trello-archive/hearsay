@@ -1,4 +1,4 @@
-latest = require 'hearsay/combinators/latest'
+latest = require 'hearsay/methods/latest'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

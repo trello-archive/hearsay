@@ -1,8 +1,8 @@
 Signal = require '../signal'
 ContinuousSignal = require '../continuous-signal'
-map = require './map'
-latest = require './latest'
-distinct = require './distinct'
+map = require '../methods/map'
+latest = require '../methods/latest'
+distinct = require '../methods/distinct'
 
 # ...this will return a continuous or a discrete signal in different contexts
 

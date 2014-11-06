@@ -1,4 +1,4 @@
-filter = require 'hearsay/combinators/filter'
+filter = require 'hearsay/methods/filter'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

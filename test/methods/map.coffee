@@ -1,4 +1,4 @@
-map = require 'hearsay/combinators/map'
+map = require 'hearsay/methods/map'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

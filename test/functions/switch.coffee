@@ -1,4 +1,4 @@
-switchFn = require 'hearsay/combinators/switch'
+switchFn = require 'hearsay/functions/switch'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'

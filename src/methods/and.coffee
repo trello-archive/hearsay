@@ -1,4 +1,4 @@
-combine = require './combine'
+combine = require '../functions/combine'
 distinct = require './distinct'
 map = require './map'
 
