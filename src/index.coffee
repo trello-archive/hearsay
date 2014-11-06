@@ -9,12 +9,19 @@ register = (target, map) ->
     target[name] = method
   return
 
-registerMethods = (map) ->
-  register(Signal.prototype, map)
-registerFunctions = (map) ->
-  register(Signal, map)
+Hearsay =
+  Signal: Signal
+  ContinuousSignal: require './continuous-signal'
+  Emitter: require './emitter'
+  Slot: require './slot'
+  watch: require './watch'
+  mixin: require './mixin'
+  registerMethods: (map) ->
+    register(Signal.prototype, map)
+  registerFunctions: (map) ->
+    register(Hearsay, map)
 
-registerMethods
+Hearsay.registerMethods
   map: require './methods/map'
   filter: require './methods/filter'
   latest: require './methods/latest'
@@ -24,17 +31,9 @@ registerMethods
   or: require './methods/or'
   not: require './methods/not'
 
-registerFunctions
+Hearsay.registerFunctions
   switch: require './functions/switch'
   combine: require './functions/combine'
   const: require './functions/const'
 
-module.exports =
-  Signal: Signal
-  ContinuousSignal: require './continuous-signal'
-  Emitter: require './emitter'
-  Slot: require './slot'
-  watch: require './watch'
-  mixin: require './mixin'
-  registerMethods: registerMethods
-  registerFunctions: registerMethods
+module.exports = Hearsay

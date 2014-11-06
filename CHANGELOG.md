@@ -1,6 +1,7 @@
 # master
 
 - added `const`
+- functions like `combine` are attached to `Hearsay`, not `Hearsay.Signal`
 
 # 0.0.2
 
