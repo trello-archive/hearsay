@@ -27,6 +27,7 @@ registerMethods
 registerFunctions
   switch: require './combinators/switch'
   combine: require './combinators/combine'
+  const: require './combinators/const'
 
 module.exports =
   Signal: Signal
