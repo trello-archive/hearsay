@@ -11,6 +11,16 @@ describe "Slot", ->
     slot.set 20
     assert slot.get() == 20
 
+  describe "Slot::update", ->
+    it "sets the new value", ->
+      slot = new Slot 10
+      slot.update (x) -> x * 2
+      assert slot.get() == 20
+
+    it "returns the updated value", ->
+      slot = new Slot 10
+      assert (slot.update (x) -> x * 2) == 20
+
   describe "Slot::watch", ->
     it "triggers immediately", ->
       invoked = false
@@ -58,4 +68,3 @@ describe "Slot", ->
       observation = new Slot(10).subscribe ->
       observation.remove()
       assert.throws observation.remove
-

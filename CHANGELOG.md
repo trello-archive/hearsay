@@ -2,6 +2,7 @@
 
 - added `const`
 - functions like `combine` are attached to `Hearsay`, not `Hearsay.Signal`
+- added `Slot::update`
 
 # 0.0.2
 

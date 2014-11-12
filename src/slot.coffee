@@ -7,3 +7,5 @@ module.exports = class Slot extends ContinuousSignal
   set: (val) ->
     @_send(val)
     return val
+  update: (fn) ->
+    @set fn(@get())
