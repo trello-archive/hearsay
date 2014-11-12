@@ -8,7 +8,6 @@
     "build-browser":     "mkdir browser; browserify src/index.coffee --extension .coffee --standalone Hearsay -t coffeeify -o browser/hearsay.js",
     "build-npm": "coffee -b -c -o lib/ --no-header src/",
     "build": "npm run build-browser && npm run build-browser-min && npm run build-npm",
-    "prepublish": "npm run build-npm",
     "test": "mocha"
   },
   "devDependencies": {
