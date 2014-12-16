@@ -22,7 +22,7 @@ Example: value of a `textarea`.
 
 ### Discrete Signals
 
-Discrete signals do not send events immediately, but only when a value becomes available. You can't discrete continuous signals with `.get()` or `.sample()`.
+Discrete signals do not send events immediately, but only when a value becomes available. You can't invoke `.get()` or `.sample()` on discrete signals.
 
 Example: click events.
 
