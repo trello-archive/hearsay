@@ -1,3 +1,8 @@
+# 2.0.0
+
+- added `subscribeChanges` method
+- added `subscribeChanges` to the mixin (potentially breaking change)
+
 # 1.0.0
 
 - added `const`

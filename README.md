@@ -101,7 +101,7 @@ The last argument is the context with which the callback will be invoked.
 
 A potentially nicer way to use Slots is as a mixin on your objects, as it can make cleanup easier.
 
-This will introduce the `subscribe`, `watch`, and `unsubscribe` methods. It will also attach the key `_hearsay_observations` that is used to track private state.
+This will introduce the `subscribe`, `subscribeChanges`, `watch`, and `unsubscribe` methods. It will also attach the key `_hearsay_observations` that is used to track private state.
 
 ## `watch`
 
@@ -118,6 +118,6 @@ If `target` is omitted, `this` is assumed. Thus the following two lines are equi
 
 ## `unsubscribe`
 
-Removes all observations created via `this.subscribe` *or* `this.watch`.
+Removes all observations created via `this.subscribe`, `this.subscribeChanges`, or `this.watch`.
 
-For more fine-grained cleanup, hold onto the return value from `this.subscribe` or `this.watch` and invoke its `remove` method.
+For more fine-grained cleanup, hold onto the return value from `this.subscribe`, `this.subscribeChanges`, or `this.watch` and invoke its `remove` method.
