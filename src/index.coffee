@@ -30,6 +30,7 @@ Hearsay.registerMethods
   and: require './methods/and'
   or: require './methods/or'
   not: require './methods/not'
+  subscribeChanges: require './methods/subscribe-changes'
 
 Hearsay.registerFunctions
   switch: require './functions/switch'

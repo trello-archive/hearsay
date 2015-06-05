@@ -1,5 +1,6 @@
 uniqueKey = require './utils/uniqueKey'
 watch = require './watch'
+subscribeChanges = require './methods/subscribe-changes'
 
 remember = (target, observation) ->
   observationSet = (target._hearsay_observations ?= {})
@@ -12,6 +13,9 @@ remember = (target, observation) ->
 module.exports =
   subscribe: (signal, callback) ->
     remember this, signal.subscribe(callback, this)
+
+  subscribeChanges: (signal, callbacks) ->
+    remember this, subscribeChanges.call(signal, callbacks, this)
 
   watch: (target, path, callback) ->
     if arguments.length == 2

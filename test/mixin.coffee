@@ -47,6 +47,67 @@ describe "Mixin", ->
       manager.unsubscribe()
       assert.deepEqual manager.names, ["John", "Jonathan"]
 
+  describe "subscribeChanges", ->
+    it "tracks subscriptions", ->
+      mixin HearsayMixin, class Manager
+        spyOn: (underling) ->
+          @subscribeChanges underling,
+            out: (person) -> person.active = false
+            in: (person) -> person.active = true
+          return
+        stopSpying: -> @unsubscribe()
+
+      manager = new Manager()
+
+      john = new Person("John")
+      mark = new Person("Mark")
+      john.active = false
+      mark.active = false
+
+      activePerson = new Slot(john)
+
+      manager.spyOn activePerson
+      assert.isTrue john.active
+      assert.isFalse mark.active
+
+      activePerson.set mark
+      assert.isFalse john.active
+      assert.isTrue mark.active
+
+      manager.stopSpying()
+      assert.isFalse john.active
+      assert.isTrue mark.active
+
+      activePerson.set john
+      assert.isFalse john.active
+      assert.isTrue mark.active
+
+    it "uses this as the context", ->
+      mixin HearsayMixin, class Manager
+        ins: 0
+        outs: 0
+        spyOn: (nameSignal) ->
+          @subscribeChanges nameSignal,
+            out: (nameSignal) -> @outs++
+            in: (nameSignal) -> @ins++
+          return
+        stopSpying: -> @unsubscribe()
+
+      manager = new Manager()
+      john = new Person("John")
+
+      assert.equal manager.ins, 0
+      assert.equal manager.outs, 0
+
+      manager.spyOn john.name
+      assert.equal manager.ins, 1
+      assert.equal manager.outs, 0
+
+      john.name.set "Jonathan"
+      assert.equal manager.ins, 2
+      assert.equal manager.outs, 1
+      manager.unsubscribe()
+
   describe "watch", ->
     it "tracks watches", ->
       names = []
