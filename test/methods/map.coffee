@@ -18,18 +18,17 @@ describe "map", ->
 
     subscription.remove()
 
-    it "preserves works with discrete signals", ->
-      emitter = new Emitter()
-      vals = []
-      mapped = map(emitter, (a) -> a * 2)
+  it "works with discrete signals", ->
+    emitter = new Emitter()
+    vals = []
+    mapped = map.call(emitter, (a) -> a * 2)
 
-      subscription = mapped.subscribe (val) ->
-        vals.push val
-      assert.deepEqual vals, []
+    subscription = mapped.subscribe (val) ->
+      vals.push val
+    assert.deepEqual vals, []
 
-      emitter.send 10
-      assert.deepEqual vals, [20]
+    emitter.send 10
+    assert.deepEqual vals, [20]
 
-      subscription.remove()
-
+    subscription.remove()
 
