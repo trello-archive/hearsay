@@ -36,5 +36,6 @@ Hearsay.registerFunctions
   switch: require './functions/switch'
   combine: require './functions/combine'
   const: require './functions/const'
+  merge: require './functions/merge'
 
 module.exports = Hearsay
