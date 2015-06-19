@@ -1,3 +1,7 @@
+# 2.1.0
+
+- added `merge`
+
 # 2.0.0
 
 - added `subscribeChanges` method
