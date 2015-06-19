@@ -28,13 +28,14 @@ describe "merge", ->
 
     subscription.remove()
 
-  it "produces a continuous signal with all continuous inputs", ->
+  it "produces a discrete signal with all continuous inputs", ->
     slot1 = new Slot(1)
     slot2 = new Slot(2)
 
     merged = merge(slot1, slot2)
 
-    assert merged instanceof ContinuousSignal
+    assert merged !instanceof ContinuousSignal
+
   it "produces a discrete signal with mixed inputs", ->
     slot = new Slot(1)
     emitter = new Emitter()
