@@ -1,15 +1,10 @@
 Signal = require '../signal'
 ContinuousSignal = require '../continuous-signal'
+all = require '../utils/all'
 
 shallowClone = (array) -> array.slice()
 
 isContinuous = (signal) -> signal instanceof ContinuousSignal
-
-all = (list, pred = (a) -> a) ->
-  for x in list
-    if !pred(x)
-      return false
-  return true
 
 module.exports = (signals...) ->
   sent = new Array(signals.length)
