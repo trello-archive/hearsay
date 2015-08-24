@@ -139,7 +139,7 @@ You usually shouldn't need to invoke `use` by hand, because:
 
 But there are cases where you might have to invoke `use` directly:
 
-- If you're writing a combinator that doesn't directly subscribe to its inputs, you will need to explicitly call `use` on the inputs you don't subscribe to. For example, see the implementation of [the `switch` combinator](./src/functions/switch.coffee).
+- If you're writing a combinator that doesn't directly subscribe to its inputs, you will need to explicitly call `use` on the inputs you don't subscribe to. For example, see the implementation of [the `if` combinator](./src/functions/if.coffee).
 - If you're maintaining a reference to a signal that you're going to subscribe to later.
 
 The latter case is probably the only time you'll need to invoke `use` directly. Let's look at an example: say we're writing a Backbone app again, and we have some "view" code:

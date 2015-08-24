@@ -37,7 +37,7 @@ Hearsay.registerMethods
   subscribeChanges: require './methods/subscribe-changes'
 
 Hearsay.registerFunctions
-  switch: require './functions/switch'
+  if: require './functions/if'
   combine: require './functions/combine'
   const: require './functions/const'
   merge: require './functions/merge'

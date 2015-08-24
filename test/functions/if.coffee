@@ -1,10 +1,10 @@
-switchFn = require 'hearsay/functions/switch'
+ifFn = require 'hearsay/functions/if'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 defer = require 'util/defer'
 { assert } = require 'chai'
 
-describe "switch", ->
+describe "if", ->
   it "works", ->
     pred = new Slot(true)
     name = new Slot("John")
@@ -12,7 +12,7 @@ describe "switch", ->
 
     vals = []
 
-    unsubscribe = switchFn(pred, name, age).subscribe (val) ->
+    unsubscribe = ifFn(pred, name, age).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
@@ -28,14 +28,14 @@ describe "switch", ->
 
     unsubscribe()
 
-  it "distincts its switch value", ->
+  it "distincts its if value", ->
     pred = new Slot(true)
     name = new Slot("John")
     age = new Slot(30)
 
     vals = []
 
-    unsubscribe = switchFn(pred, name, age).subscribe (val) ->
+    unsubscribe = ifFn(pred, name, age).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
@@ -56,10 +56,10 @@ describe "switch", ->
     pred = new Slot(true).addDisposer -> disposed1 = true
     name1 = new Slot("John").addDisposer -> disposed2 = true
     name2 = new Slot("Mark").addDisposer -> disposed3 = true
-    switcher = switchFn(pred, name1, name2).addDisposer -> disposed4 = true
+    ifSignal = ifFn(pred, name1, name2).addDisposer -> disposed4 = true
 
     vals = []
-    unsubscribe = switcher.subscribe (val) ->
+    unsubscribe = ifSignal.subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
