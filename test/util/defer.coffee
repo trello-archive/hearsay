@@ -1,7 +1,9 @@
 Promise = require 'bluebird'
+timeout = require './timeout'
 
 module.exports = (val) ->
   new Promise (resolve) ->
-    setTimeout ->
+    timeout ->
       resolve(val)
-    , 1
+      return
+    return
