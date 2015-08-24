@@ -94,7 +94,9 @@ Every time you invoke the return value of `signal.use`, it decrements its count.
 
 Whenever a signal's use count is `0`, it schedules itself for disposal. All newly created signals are scheduled for disposal, because they start with a use count of `0`.
 
-If a signal that is scheduled for disposal still has a use count of `0` on the next tick, it disposes of itself by invoking the disposer it was created with.
+If a signal that is scheduled for disposal still has a use count of `0` when the scheduler runs, it disposes of itself by invoking the disposer it was created with.
+
+By default, the scheduler is `setTimeout`. You can use `Hearsay.setScheduler(fn)` to change this (for example, to use `setImmediate` in Node, or to use a more deterministic scheduler for testing).
 
 Yes, this is basically an ad-hoc implementation of reference counting. Yes, this is all ripped off from [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)'s resource management.
 

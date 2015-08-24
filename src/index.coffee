@@ -1,4 +1,5 @@
 Signal = require './signal'
+schedulerRef = require './scheduler-ref'
 
 register = (target, map) ->
   for own name, method of map
@@ -16,6 +17,8 @@ Hearsay =
   Slot: require './slot'
   watch: require './watch'
   mixin: require './mixin'
+  setScheduler: (scheduler) ->
+    schedulerRef.schedule = scheduler
   registerMethods: (map) ->
     register(Signal.prototype, map)
   registerFunctions: (map) ->

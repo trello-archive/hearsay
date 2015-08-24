@@ -45,6 +45,7 @@
 - Added the `if` method to `Signal`, as a shorthand for `Hearsay.if`. `signal.if(a, b)` is equivalent to `Hearsay.if(signal, a, b)`.
 - Added the `use` method to `Signal`.
 - Added the `addDisposer` method to `Signal`.
+- Added `Hearsay.setScheduler`.
 
 # 2.1.0
 

@@ -1,11 +1,12 @@
 uniqueKey = require './utils/uniqueKey'
 once = require './utils/once'
+schedulerRef = require './scheduler-ref'
 
 eligibleSignals = []
-disposalTimeout = null
+isDisposalScheduled = false
 
 dispose = ->
-  disposalTimeout = null
+  isDisposalScheduled = false
   signals = eligibleSignals
   eligibleSignals = []
   for signal in signals
@@ -36,9 +37,10 @@ module.exports = class Signal
       return
     @_scheduled = true
     eligibleSignals.push(@)
-    if disposalTimeout?
+    if isDisposalScheduled
       return
-    disposalTimeout = setTimeout(dispose,0)
+    schedulerRef.schedule(dispose)
+    isDisposalScheduled = true
     return
 
   _dispose: ->
