@@ -2,6 +2,7 @@ merge = require 'hearsay/functions/merge'
 ContinuousSignal = require 'hearsay/continuous-signal'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
+defer = require 'util/defer'
 { assert } = require 'chai'
 
 describe "merge", ->
@@ -43,3 +44,26 @@ describe "merge", ->
     merged = merge(slot, emitter)
 
     assert merged !instanceof ContinuousSignal
+
+  it "does not leak its underlying signals", ->
+    disposed1 = false
+    disposed2 = false
+    disposed3 = false
+
+    signal1 = new Slot(1).addDisposer -> disposed1 = true
+    signal2 = new Emitter().addDisposer -> disposed2 = true
+    merge(signal1, signal2).addDisposer -> disposed3 = true
+
+    assert !disposed1
+    assert !disposed2
+    assert !disposed3
+    defer()
+    .tap ->
+      assert !disposed1
+      assert !disposed2
+      assert disposed3
+      defer()
+    .tap ->
+      assert disposed1
+      assert disposed2
+      assert disposed3
