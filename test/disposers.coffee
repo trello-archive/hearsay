@@ -1,12 +1,7 @@
 Signal = require 'hearsay/signal'
 Promise = require 'bluebird'
+defer = require 'util/defer'
 { assert } = require 'chai'
-
-defer = (val) ->
-  new Promise (resolve) ->
-    setTimeout ->
-      resolve(val)
-    , 1
 
 getDisposed = ->
   defer(new Signal ->)
