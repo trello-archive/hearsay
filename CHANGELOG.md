@@ -44,6 +44,7 @@
 - Added the `merge` method to `Signal`, as a shorthand for `Hearsay.merge`. `signal.merge(a, b)` is equivalent to `Hearsay.merge(signal, a, b)`
 - Added the `if` method to `Signal`, as a shorthand for `Hearsay.if`. `signal.if(a, b)` is equivalent to `Hearsay.if(signal, a, b)`.
 - Added the `use` method to `Signal`.
+- Added the `addDisposer` method to `Signal`.
 
 # 2.1.0
 

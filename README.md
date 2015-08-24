@@ -200,7 +200,7 @@ _.extend(PersonView.prototype, Hearsay.mixin);
 
 After a signal has been disposed, it is an error to interact with the signal. This means you can't call any methods on it, you can't pass it as an argument to functions like `Hearsay.merge`, etc.
 
-More precisely, it becomes an error to invoke the `use` method on a disposed signal or to invoke the send function passed into its initialization callback.
+More precisely, it becomes an error to invoke `use` or `addDisposer` on a disposed signal or to invoke the send function passed into its initialization callback.
 
 The former point means that you basically can't interact with a signal that has been disposed, since all combinators will invoke `use` either directly or indirectly.
 

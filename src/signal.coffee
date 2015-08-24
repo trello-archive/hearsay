@@ -20,7 +20,7 @@ module.exports = class Signal
   _scheduled: false
 
   constructor: (source) ->
-    @_disposer = source @_send.bind(@)
+    @_disposers = [source @_send.bind(@)]
     @_subscriptions = {}
     @_schedule()
 
@@ -43,8 +43,8 @@ module.exports = class Signal
 
   _dispose: ->
     @_disposed = true
-    if typeof @_disposer != 'undefined'
-      @_disposer()
+    for disposer in @_disposers when typeof disposer != 'undefined'
+      disposer()
     return
 
   subscribe: (fn, context) ->
@@ -75,5 +75,11 @@ module.exports = class Signal
       return ->
         disposeInner()
         unuse()
+
+  addDisposer: (disposer) ->
+    if @_disposed
+      throw new Error("Cannot add a disposer to a disposed signal.")
+    @_disposers.push(disposer)
+    return @
 
   derivedType: Signal
