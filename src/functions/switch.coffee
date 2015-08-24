@@ -10,3 +10,5 @@ module.exports = (pred, first, second) ->
   chosenSignal = map.call distinct.call(pred), (input) ->
     if input then first else second
   latest.call chosenSignal
+  .addDisposer first.use()
+  .addDisposer second.use()
