@@ -16,4 +16,4 @@ module.exports = class ContinuousSignal extends Signal
     fn.call context, @get()
     super
 
-  derive: (source) -> new ContinuousSignal source
+  derivedType: ContinuousSignal
