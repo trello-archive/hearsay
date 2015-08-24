@@ -21,7 +21,6 @@ module.exports = (signals...) ->
     return
 
   if all(signals, isContinuous)
-    # TODO...
-    ContinuousSignal::derive generator
+    new ContinuousSignal generator
   else
     new Signal generator

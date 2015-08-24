@@ -2,7 +2,7 @@ ContinuousSignal = require 'hearsay/continuous-signal'
 { assert } = require 'chai'
 
 class Subject
-  constructor: (val) -> @signal = new ContinuousSignal val, (@send) =>
+  constructor: (val) -> @signal = new ContinuousSignal (@send) => @send(val)
 
 describe "ContinuousSignal", ->
   it "starts with its current value", ->

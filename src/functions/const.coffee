@@ -1,4 +1,4 @@
 ContinuousSignal = require '../continuous-signal'
 
 module.exports = (val) ->
-  new ContinuousSignal val, (send) ->
+  new ContinuousSignal (send) -> send(val)

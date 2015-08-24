@@ -3,7 +3,7 @@ ContinuousSignal = require './continuous-signal'
 
 module.exports = class Slot extends ContinuousSignal
   constructor: (val) ->
-    super val, (@_send) =>
+    super (@_send) => @_send(val)
   set: (val) ->
     @_send(val)
     return val
