@@ -61,12 +61,8 @@ describe "Disposers", ->
     assert !disposed2, "Already disposed signal2"
     defer()
     .tap ->
-      assert !disposed1, "Disposed signal1 even though derived signal2 depends on it"
       assert disposed2, "Didn't dispose signal2 even though it's unused"
-      defer()
-    .tap ->
-      assert disposed1, "Didn't dispose signal1"
-      assert disposed2, "signal2 came back from the dead"
+      assert disposed1, "Didn't dispose signal1 even though the only thing that depends on it was disposed"
 
   it "disposing of a derived signal will not synchronously dispose of the underlying signal", ->
     disposed1 = false
@@ -77,16 +73,21 @@ describe "Disposers", ->
     signal2 = signal1.derive ->
       -> disposed2 = true
 
+    unuse2 = signal2.use()
+
     assert !disposed1, "Already disposed signal1"
     assert !disposed2, "Already disposed signal2"
     defer()
     .then ->
       assert !disposed1, "Disposed signal1 even though derived signal2 depends on it"
-      assert disposed2, "Didn't dispose signal2 even though it's unused"
+      assert !disposed2, "Disposed signal2 even though we have a use lease out"
+      unuse2()
+      assert !disposed1, "Disposed signal1 even though derived signal2 depends on it"
+      assert !disposed2, "Disposed signal2 synchronously after unuse"
       defer(signal1.use())
     .tap (unuse1) ->
       assert !disposed1, "Disposed signal1 even though we explicitly used it"
-      assert disposed2, "signal2 came back from the dead"
+      assert disposed2, "Didn't dispose signal2 even though we stopped using it"
       unuse1()
       assert !disposed1, "Disposed signal1 synchronously after unuse"
       defer()

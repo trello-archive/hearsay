@@ -90,12 +90,5 @@ describe "latest", ->
       assert disposed1
       assert disposed2
       assert disposed3
-      assert !disposed4
-      assert disposedOuter
-      defer()
-    .tap ->
-      assert disposed1
-      assert disposed2
-      assert disposed3
       assert disposed4
       assert disposedOuter

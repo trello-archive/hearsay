@@ -99,23 +99,8 @@ describe "switch", ->
       assert !disposed4
       defer()
     .tap ->
-      assert !disposed1
-      assert !disposed2
-      assert !disposed3
-      assert disposed4
-      defer()
-    .tap defer # [DEFERRING]
-    .tap defer
-    .tap ->
       assert disposed1
       assert disposed2
       assert disposed3
       assert disposed4
       return
-
-# [DEFERRING]
-#
-# pred is wrapped in a distinct and a map, so we have to wait until those are
-# disposed until the pred will finally be disposed. Yes, this leaks too much
-# implementation into the tests. We could implement switch in terms of fewer
-# combinators, but eh.

@@ -127,7 +127,7 @@ After the first statement is executed, `signal1` has a use count of `0`. After t
 
 - `signal2` will be disposed on the next tick of the run loop.
 - This will decrement `signal1`'s use count, and schedule it for disposal as well (since `signal2` is no longer using it).
-- On the *next* tick of the run loop
+- Since we're already running a disposal operation, `signal1` will be disposed of as well -- it won't wait for the next tick, since it was triggered for disposal from another signal's disposer.
 
 ### When should you invoke `use`?
 

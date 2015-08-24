@@ -59,11 +59,6 @@ describe "merge", ->
     assert !disposed3
     defer()
     .tap ->
-      assert !disposed1
-      assert !disposed2
-      assert disposed3
-      defer()
-    .tap ->
       assert disposed1
       assert disposed2
       assert disposed3

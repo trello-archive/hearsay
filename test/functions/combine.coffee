@@ -74,11 +74,6 @@ describe "combine", ->
     assert !disposed2
     defer()
     .tap ->
-      assert !disposed1
-      assert !disposed2
-      assert disposed3
-      defer()
-    .tap ->
       assert disposed1
       assert disposed2
       assert disposed3

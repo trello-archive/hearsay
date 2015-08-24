@@ -6,13 +6,15 @@ eligibleSignals = []
 isDisposalScheduled = false
 
 dispose = ->
-  isDisposalScheduled = false
-  signals = eligibleSignals
-  eligibleSignals = []
-  for signal in signals
+  i = 0
+  while i < eligibleSignals.length
+    signal = eligibleSignals[i]
     signal._scheduled = false
-  for signal in signals when signal._users == 0
-    signal._dispose()
+    if signal._users == 0
+      signal._dispose()
+    i++
+  eligibleSignals = []
+  isDisposalScheduled = false
   return
 
 module.exports = class Signal
