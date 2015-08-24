@@ -46,6 +46,7 @@
 - Added the `use` method to `Signal`.
 - Added the `addDisposer` method to `Signal`.
 - Added `Hearsay.setScheduler`.
+- Added `Hearsay.registerHybrids`.
 
 # 2.1.0
 

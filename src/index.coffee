@@ -10,6 +10,8 @@ register = (target, map) ->
     target[name] = method
   return
 
+methodify = (fn) -> (args...) -> fn(this, args...)
+
 Hearsay =
   Signal: Signal
   ContinuousSignal: require './continuous-signal'
@@ -23,6 +25,12 @@ Hearsay =
     register(Signal.prototype, map)
   registerFunctions: (map) ->
     register(Hearsay, map)
+  registerHybrids: (map) ->
+    Hearsay.registerFunctions(map)
+    methodMap = {}
+    for key, value of map
+      methodMap[key] = methodify(value)
+    Hearsay.registerMethods methodMap
 
 Hearsay.registerMethods
   map: require './methods/map'
@@ -37,9 +45,11 @@ Hearsay.registerMethods
   subscribeChanges: require './methods/subscribe-changes'
 
 Hearsay.registerFunctions
+  const: require './functions/const'
+
+Hearsay.registerHybrids
   if: require './functions/if'
   combine: require './functions/combine'
-  const: require './functions/const'
   merge: require './functions/merge'
 
 module.exports = Hearsay
