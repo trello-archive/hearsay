@@ -15,14 +15,18 @@ isContinuous = (signal) -> signal instanceof ContinuousSignal
 module.exports = ->
   outerSignal = this
   generator = (send) ->
-    unsubscribe = magicInitialValue
-    outerSignal.subscribe (innerSignal) ->
-      if unsubscribe != magicInitialValue
-        unsubscribe()
-
-      unsubscribe = innerSignal.subscribe send
+    innerUnsubscribe = magicInitialValue
+    unsubscribeInner = ->
+      if innerUnsubscribe != magicInitialValue
+        innerUnsubscribe()
+    outerUnsubscribe = outerSignal.subscribe (innerSignal) ->
+      unsubscribeInner()
+      innerUnsubscribe = innerSignal.subscribe send
+    return ->
+      outerUnsubscribe()
+      unsubscribeInner()
 
   if isContinuous(outerSignal) && isContinuous(outerSignal.get())
-    outerSignal.derive generator
+    new ContinuousSignal generator
   else
     new Signal generator
