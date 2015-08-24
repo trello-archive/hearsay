@@ -1,7 +1,9 @@
 combine = require 'hearsay/functions/combine'
+Signal = require 'hearsay/signal'
 Emitter = require 'hearsay/emitter'
 Slot = require 'hearsay/slot'
 { assert } = require 'chai'
+defer = require 'util/defer'
 
 describe "combine", ->
   it "only sends after all signals have sent", ->
@@ -58,3 +60,25 @@ describe "combine", ->
     assert.deepEqual vals, [[1, 2]]
 
     unsubscribe()
+
+  it "does not leak signals", ->
+    disposed1 = false
+    disposed2 = false
+    disposed3 = false
+
+    signal1 = new Signal -> -> disposed1 = true
+    signal2 = new Signal -> -> disposed2 = true
+    combine(signal1, signal2).addDisposer -> disposed3 = true
+
+    assert !disposed1
+    assert !disposed2
+    defer()
+    .tap ->
+      assert !disposed1
+      assert !disposed2
+      assert disposed3
+      defer()
+    .tap ->
+      assert disposed1
+      assert disposed2
+      assert disposed3

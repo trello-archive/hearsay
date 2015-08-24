@@ -11,14 +11,17 @@ module.exports = (signals...) ->
   vals = new Array(signals.length)
 
   generator = (send) ->
-    for signal, index in signals then do (signal, index) ->
+    subscriptions = signals.map (signal, index) ->
       signal.subscribe (val) ->
         sent[index] = true
         vals[index] = val
 
         if all(sent)
           send(shallowClone vals)
-    return
+    return ->
+      subscriptions.forEach (unsubscribe) ->
+        unsubscribe()
+      return
 
   if all(signals, isContinuous)
     new ContinuousSignal generator
