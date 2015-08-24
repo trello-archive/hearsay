@@ -12,6 +12,7 @@
     "test": "mocha"
   },
   "devDependencies": {
+    "bluebird": "2.9.34",
     "browserify": "11.0.1",
     "chai": "3.2.0",
     "coffee-script": "1.9.3",
