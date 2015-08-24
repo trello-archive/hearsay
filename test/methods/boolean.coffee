@@ -10,21 +10,21 @@ describe "and", ->
     slot2 = new Slot(true)
     vals = []
 
-    subscription = andFn.call(slot1, slot2).subscribe (val) ->
+    unsubscribe = andFn.call(slot1, slot2).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [true]
 
     slot1.set false
     assert.deepEqual vals, [true, false]
 
-    subscription.remove()
+    unsubscribe()
 
   it "distincts its output", ->
     slot1 = new Slot(true)
     slot2 = new Slot(false)
     vals = []
 
-    subscription = andFn.call(slot1, slot2).subscribe (val) ->
+    unsubscribe = andFn.call(slot1, slot2).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [false]
 
@@ -35,7 +35,7 @@ describe "and", ->
     slot2.set true
     assert.deepEqual vals, [false, true]
 
-    subscription.remove()
+    unsubscribe()
 
 describe "or", ->
   it "works", ->
@@ -43,21 +43,21 @@ describe "or", ->
     slot2 = new Slot(false)
     vals = []
 
-    subscription = orFn.call(slot1, slot2).subscribe (val) ->
+    unsubscribe = orFn.call(slot1, slot2).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [true]
 
     slot1.set false
     assert.deepEqual vals, [true, false]
 
-    subscription.remove()
+    unsubscribe()
 
   it "distincts its output", ->
     slot1 = new Slot(true)
     slot2 = new Slot(false)
     vals = []
 
-    subscription = orFn.call(slot1, slot2).subscribe (val) ->
+    unsubscribe = orFn.call(slot1, slot2).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [true]
 
@@ -68,18 +68,18 @@ describe "or", ->
     slot2.set false
     assert.deepEqual vals, [true, false]
 
-    subscription.remove()
+    unsubscribe()
 
 describe "not", ->
   it "works", ->
     slot = new Slot(true)
     vals = []
 
-    subscription = notFn.call(slot).subscribe (val) ->
+    unsubscribe = notFn.call(slot).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [false]
 
     slot.set false
     assert.deepEqual vals, [false, true]
 
-    subscription.remove()
+    unsubscribe()

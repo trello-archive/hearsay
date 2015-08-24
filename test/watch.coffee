@@ -9,13 +9,13 @@ describe "Watch", ->
     mark = new Person("Mark")
     names = []
 
-    observation = watch john, 'name', (name) ->
+    unsubscribe = watch john, 'name', (name) ->
       names.push name
 
     john.name.set("Jonathan")
     john.name.set("John")
 
-    observation.remove()
+    unsubscribe()
 
     assert.deepEqual names, ["John", "Jonathan", "John"]
 
@@ -24,11 +24,12 @@ describe "Watch", ->
     john['.'] = dotSlot = new Slot("!")
 
     dots = []
-    observation = watch john, ['.'], (dot) ->
+    unsubscribe = watch john, ['.'], (dot) ->
       dots.push dot
 
     dotSlot.set "?"
     assert.deepEqual dots, ["!", "?"]
+    unsubscribe()
 
   it "requires a path", ->
     john = new Person("John")
@@ -41,13 +42,13 @@ describe "Watch", ->
 
       names = []
 
-      observation = watch mark, 'lover.name', (name) ->
+      unsubscribe = watch mark, 'lover.name', (name) ->
         names.push name
 
       john.name.set("Jonathan")
       john.name.set("John")
 
-      observation.remove()
+      unsubscribe()
 
       assert.deepEqual names, ["John", "Jonathan", "John"]
 
@@ -58,13 +59,13 @@ describe "Watch", ->
 
       names = []
 
-      observation = watch mark, 'lover.name', (name) ->
+      unsubscribe = watch mark, 'lover.name', (name) ->
         names.push name
 
       mark.lover.set(mary)
       mary.name.set("Mary Jane")
 
-      observation.remove()
+      unsubscribe()
 
       assert.deepEqual names, ["John", "Mary", "Mary Jane"]
 

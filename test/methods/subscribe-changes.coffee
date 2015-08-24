@@ -10,7 +10,7 @@ describe "subscribeChanges", ->
     outgoing = []
     incoming = []
 
-    subscription = subscribeChanges.call slot,
+    unsubscribe = subscribeChanges.call slot,
       out: (old) -> outgoing.push old
       in: (val) -> incoming.push val
 
@@ -27,13 +27,13 @@ describe "subscribeChanges", ->
     assert.deepEqual outgoing, [1, 2]
     assert.deepEqual incoming, [1, 2, 3]
 
-    subscription.remove()
+    unsubscribe()
 
   it "respects the context argument", ->
     slot = new Slot(1)
     obj = { sum: 0 }
 
-    subscription = subscribeChanges.call slot,
+    unsubscribe = subscribeChanges.call slot,
       out: (old) -> @sum -= old
       in: (val) -> @sum += val
     , obj
@@ -42,14 +42,14 @@ describe "subscribeChanges", ->
     slot.set 2
     assert.equal obj.sum, 2
 
-    subscription.remove()
+    unsubscribe()
 
   it "calls out before in", ->
     slot = new Slot(1)
 
     hasRoom = true
 
-    subscription = subscribeChanges.call slot,
+    unsubscribe = subscribeChanges.call slot,
       out: (old) ->
         assert.isFalse(hasRoom)
         hasRoom = true
@@ -60,7 +60,7 @@ describe "subscribeChanges", ->
     slot.set 2
     slot.set 3
 
-    subscription.remove()
+    unsubscribe()
 
   it "works with discrete signals", ->
     emitter = new Emitter()
@@ -68,7 +68,7 @@ describe "subscribeChanges", ->
     outgoing = []
     incoming = []
 
-    subscription = subscribeChanges.call emitter,
+    unsubscribe = subscribeChanges.call emitter,
       out: (old) -> outgoing.push old
       in: (val) -> incoming.push val
 
@@ -90,4 +90,4 @@ describe "subscribeChanges", ->
     assert.deepEqual outgoing, [1, 2]
     assert.deepEqual incoming, [1, 2, 3]
 
-    subscription.remove()
+    unsubscribe()

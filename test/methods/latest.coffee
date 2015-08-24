@@ -9,14 +9,14 @@ describe "latest", ->
     outer = new Slot(name)
     vals = []
 
-    subscription = latest.call(outer).subscribe (val) ->
+    unsubscribe = latest.call(outer).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
     name.set "Mary"
     assert.deepEqual vals, ["John", "Mary"]
 
-    subscription.remove()
+    unsubscribe()
 
   it "doesn't send values for old inner signals", ->
     name = new Slot("John")
@@ -24,7 +24,7 @@ describe "latest", ->
     outer = new Slot(name)
     vals = []
 
-    subscription = latest.call(outer).subscribe (val) ->
+    unsubscribe = latest.call(outer).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
@@ -33,4 +33,4 @@ describe "latest", ->
 
     name.set "Mary"
     assert.deepEqual vals, ["John", 30]
-    subscription.remove()
+    unsubscribe()

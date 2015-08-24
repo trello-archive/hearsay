@@ -144,10 +144,10 @@ describe "Mixin", ->
       john = new Person("John")
       mark = new Person("Mark")
 
-      johnSpying = manager.spyOn john
+      stopJohnSpying = manager.spyOn john
       john.name.set "Jonathan"
       manager.spyOn mark
-      johnSpying.remove()
+      stopJohnSpying()
       john.name.set "John"
       mark.name.set "Matthew"
       manager.unsubscribe()

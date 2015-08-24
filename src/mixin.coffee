@@ -2,12 +2,12 @@ uniqueKey = require './utils/uniqueKey'
 watch = require './watch'
 subscribeChanges = require './methods/subscribe-changes'
 
-remember = (target, observation) ->
+remember = (target, unsubscribe) ->
   observationSet = (target._hearsay_observations ?= {})
   key = uniqueKey()
-  observationSet[key] = observation
-  return remove: ->
-    observation.remove()
+  observationSet[key] = unsubscribe
+  return ->
+    unsubscribe()
     delete observationSet[key]
 
 module.exports =
@@ -26,7 +26,7 @@ module.exports =
     remember this, watch(target, path, callback, this)
 
   unsubscribe: ->
-    for key, observation of @_hearsay_observations
-      observation.remove()
+    for key, unsubscribe of @_hearsay_observations
+      unsubscribe()
     delete @_hearsay_observations
     return

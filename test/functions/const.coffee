@@ -5,8 +5,8 @@ describe "const", ->
   it "fires immediately", ->
     vals = []
 
-    subscription = constFn(10).subscribe (val) ->
+    unsubscribe = constFn(10).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [10]
 
-    subscription.remove()
+    unsubscribe()

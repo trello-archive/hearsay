@@ -10,7 +10,7 @@ describe "merge", ->
     emitter2 = new Emitter()
     vals = []
 
-    subscription = merge(emitter1, emitter2).subscribe (val) ->
+    unsubscribe = merge(emitter1, emitter2).subscribe (val) ->
       vals.push val
 
     assert.deepEqual vals, []
@@ -26,7 +26,7 @@ describe "merge", ->
 
     assert.deepEqual vals, [1, 2, 3, 4, 5, 6]
 
-    subscription.remove()
+    unsubscribe()
 
   it "produces a discrete signal with all continuous inputs", ->
     slot1 = new Slot(1)

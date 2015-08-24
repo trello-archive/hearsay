@@ -11,7 +11,7 @@ describe "switch", ->
 
     vals = []
 
-    subscription = switchFn(pred, name, age).subscribe (val) ->
+    unsubscribe = switchFn(pred, name, age).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
@@ -25,7 +25,7 @@ describe "switch", ->
     pred.set true
     assert.deepEqual vals, ["John", 30, 40, "Mary"]
 
-    subscription.remove()
+    unsubscribe()
 
   it "distincts its switch value", ->
     pred = new Slot(true)
@@ -34,7 +34,7 @@ describe "switch", ->
 
     vals = []
 
-    subscription = switchFn(pred, name, age).subscribe (val) ->
+    unsubscribe = switchFn(pred, name, age).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, ["John"]
 
@@ -44,4 +44,4 @@ describe "switch", ->
     pred.set true
     assert.deepEqual vals, ["John"]
 
-    subscription.remove()
+    unsubscribe()

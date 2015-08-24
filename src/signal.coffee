@@ -53,7 +53,7 @@ module.exports = class Signal
     watchers[key] = [fn, context]
     unuse = @use()
 
-    return remove: once 'Already disposed!', ->
+    return once 'Cannot "unsubscribe" more than once!', ->
       delete watchers[key]
       unuse()
       return

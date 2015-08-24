@@ -9,7 +9,7 @@ describe "filter", ->
     vals = []
     filtered = filter.call(emitter, (a) -> a % 2 == 0)
 
-    subscription = filtered.subscribe (val) ->
+    unsubscribe = filtered.subscribe (val) ->
       vals.push val
     assert.deepEqual vals, []
 
@@ -23,4 +23,4 @@ describe "filter", ->
     emitter.send 4
     assert.deepEqual vals, [2, 4]
 
-    subscription.remove()
+    unsubscribe()

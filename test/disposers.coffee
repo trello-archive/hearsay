@@ -38,11 +38,11 @@ describe "Disposers", ->
       -> disposed = true
 
     assert !disposed, "Already disposed"
-    observation = signal.subscribe(->)
+    unsubscribe = signal.subscribe(->)
     defer()
     .tap ->
       assert !disposed, "Disposed even though there was a subscriber"
-      observation.remove()
+      unsubscribe()
       assert !disposed, "Disposed synchronously after unsubscribe"
       defer()
     .tap ->

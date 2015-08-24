@@ -34,9 +34,11 @@ You can convert a discrete signal into a continuous signal with `.cache` or `.re
 
 A slot is a container for a value. You can think of it as a mutable continuous signal -- a signal with a current value that can be changed by invoking the `.set` method.
 
-## Observations
+## Subscriptions
 
-An observation is an object with one method: `remove`. When you watch something, it returns an observation that you can use to stop watching that thing.
+When you subscribe to a signal, that signal will return a function that you can invoke to `unsubscribe` from it.
+
+In previous versions of Hearsay, `subscribe` used to return an object with one method, `remove`. Now it just returns the `remove` method as a function.
 
 The mixin form of the API makes this easier if you want to do all of your cleanup in one place.
 
@@ -256,7 +258,7 @@ Example usage:
     console.log name.get()
     >> James
 
-    observation = name.subscribe (val) ->
+    unsubscribe = name.subscribe (val) ->
       console.log "Name is #{val}"
     >> Name is James
 
@@ -265,7 +267,7 @@ Example usage:
     console.log name.get()
     >> Mary
 
-    observation.remove()
+    unsubscribe()
     name.set "Penelope"
     console.log name.get()
     >> Penelope
@@ -278,7 +280,7 @@ The second argument to `subscribe` is the context with which the `callback` will
 
 `watch` will invoke its callback as soon as it's added. Use a skip combinator if you don't want this behavior.
 
-Don't forget to `.remove()` the observation returned by `watch`.
+Don't forget to invoke the `unsubscribe` function returned by `watch`.
 
 You can pass `watch` either a string of dot-separated keypaths or an array of strings (in case your keys have dots in them).
 
@@ -286,7 +288,7 @@ The last argument is the context with which the callback will be invoked.
 
 ## Mixin
 
-A potentially nicer way to use Slots is as a mixin on your objects, as it can make cleanup easier.
+A potentially nicer way to use `Slot`s is as a mixin on your objects, as it can make cleanup easier.
 
 This will introduce the `subscribe`, `subscribeChanges`, `watch`, and `unsubscribe` methods. It will also attach the key `_hearsay_observations` that is used to track private state.
 

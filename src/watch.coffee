@@ -35,7 +35,7 @@ newObservation = (target, path, callback, context, pred) ->
     intermediateObservation target, path, callback, context, pred
 
   removed = false
-  return remove: ->
+  return ->
     if removed
       throw new Error "Observation already removed!"
     else
@@ -48,26 +48,26 @@ finalObservation = (target, key, callback, context, pred) ->
 
   guardedCallback = guarded callback, allowFirst -> pred slot
 
-  { remove } = slot.subscribe guardedCallback, context
+  remove = slot.subscribe guardedCallback, context
   return remove
 
 intermediateObservation = (target, [head, tail...], callback, context, pred) ->
-  next = { remove: -> }
+  removeNext = ->
   slot = target[head]
 
   intermediateCallback = (val) ->
-    next.remove()
-    next = newObservation val, tail, callback, context, (otherSlot) ->
+    removeNext()
+    removeNext = newObservation val, tail, callback, context, (otherSlot) ->
       slot != otherSlot && pred(otherSlot)
     return
 
   guardedCallback = guarded intermediateCallback, allowFirst -> pred slot
 
-  { remove } = slot.subscribe guardedCallback, context
+  remove = slot.subscribe guardedCallback, context
 
   return ->
     remove()
-    next.remove()
+    removeNext()
     return
 
 module.exports = (target, path, callback, context) ->

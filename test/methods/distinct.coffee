@@ -8,7 +8,7 @@ describe "distinct", ->
     slot = new Slot(1)
     vals = []
 
-    subscription = distinct.call(slot).subscribe (val) ->
+    unsubscribe = distinct.call(slot).subscribe (val) ->
       vals.push val
 
     slot.set 1
@@ -22,13 +22,13 @@ describe "distinct", ->
     slot.set 1
     assert.deepEqual vals, [1, 2, 1]
 
-    subscription.remove()
+    unsubscribe()
 
   it "allows a custom comparison function", ->
     slot = new Slot([1])
     vals = []
 
-    subscription = distinct.call(slot, ([a], [b]) -> a == b).subscribe (val) ->
+    unsubscribe = distinct.call(slot, ([a], [b]) -> a == b).subscribe (val) ->
       vals.push val
 
     slot.set [1]
@@ -42,4 +42,4 @@ describe "distinct", ->
     slot.set [1]
     assert.deepEqual vals, [[1], [2], [1]]
 
-    subscription.remove()
+    unsubscribe()

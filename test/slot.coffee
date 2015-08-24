@@ -26,7 +26,7 @@ describe "Slot", ->
       invoked = false
       fail = -> invoked = true
       slot = new Slot 0
-      slot.subscribe(fail).remove()
+      slot.subscribe(fail)()
       assert invoked
 
     it "removing prevents triggering", ->
@@ -35,7 +35,7 @@ describe "Slot", ->
         assert !invoked
         invoked = true
       slot = new Slot 10
-      slot.subscribe(once).remove()
+      slot.subscribe(once)()
       slot.set(10)
       slot.set(20)
 
@@ -43,18 +43,18 @@ describe "Slot", ->
       count = 0
       increment = -> count++
       slot = new Slot 10
-      observation = slot.subscribe increment
+      unsubscribe = slot.subscribe increment
       assert count == 1
       slot.set 10
       assert count == 2
       slot.set 20
       assert count == 3
-      observation.remove()
+      unsubscribe()
 
     it "respects context", ->
       counter = { count: 0, increment: -> @count++ }
       slot = new Slot 10
-      observation = slot.subscribe counter.increment, counter
+      unsubscribe = slot.subscribe counter.increment, counter
 
       assert counter.count == 1
       slot.set 20
@@ -62,9 +62,9 @@ describe "Slot", ->
       slot.set 30
       assert counter.count == 3
 
-      observation.remove()
+      unsubscribe()
 
-    it "does not allow multiple .removes()", ->
-      observation = new Slot(10).subscribe ->
-      observation.remove()
-      assert.throws observation.remove
+    it "does not allow multiple unsubscribes", ->
+      unsubscribe = new Slot(10).subscribe ->
+      unsubscribe()
+      assert.throws -> unsubscribe()

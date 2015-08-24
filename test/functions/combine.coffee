@@ -9,7 +9,7 @@ describe "combine", ->
     emitter2 = new Emitter(2)
     vals = []
 
-    subscription = combine(emitter1, emitter2).subscribe (val) ->
+    unsubscribe = combine(emitter1, emitter2).subscribe (val) ->
       vals.push val
 
     assert.deepEqual vals, []
@@ -29,32 +29,32 @@ describe "combine", ->
     emitter2.send "baz"
     assert.deepEqual vals, [[3, "foo"], [3, "bar"], [4, "bar"], [4, "baz"]]
 
-    subscription.remove()
+    unsubscribe()
 
   it "produces a continuous signal with all continuous inputs", ->
     slot1 = new Slot(1)
     slot2 = new Slot(2)
     vals = []
 
-    subscription = combine(slot1, slot2).subscribe (val) ->
+    unsubscribe = combine(slot1, slot2).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, [[1, 2]]
 
     slot1.set 3
     assert.deepEqual vals, [[1, 2], [3, 2]]
 
-    subscription.remove()
+    unsubscribe()
 
   it "produces a discrete signal with mixed inputs", ->
     slot = new Slot(1)
     emitter = new Emitter()
     vals = []
 
-    subscription = combine(slot, emitter).subscribe (val) ->
+    unsubscribe = combine(slot, emitter).subscribe (val) ->
       vals.push val
     assert.deepEqual vals, []
 
     emitter.send 2
     assert.deepEqual vals, [[1, 2]]
 
-    subscription.remove()
+    unsubscribe()

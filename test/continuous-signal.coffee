@@ -10,9 +10,9 @@ describe "ContinuousSignal", ->
     signal = subject.signal
 
     vals = []
-    subscription = signal.subscribe (val) ->
+    unsubscribe = signal.subscribe (val) ->
       vals.push val
-    subscription.remove()
+    unsubscribe()
     assert.deepEqual vals, [1]
 
   it "sends to all subscribers", ->
@@ -21,16 +21,16 @@ describe "ContinuousSignal", ->
 
     vals1 = []
     vals2 = []
-    subscription1 = signal.subscribe (val) ->
+    unsubscribe1 = signal.subscribe (val) ->
       vals1.push val
-    subscription2 = signal.subscribe (val) ->
+    unsubscribe2 = signal.subscribe (val) ->
       vals2.push val
     subject.send 10
     assert.deepEqual vals1, [1, 10]
     assert.deepEqual vals2, [1, 10]
 
-    subscription1.remove()
-    subscription2.remove()
+    unsubscribe1()
+    unsubscribe2()
 
   it "doesn't send to a removed subscriber", ->
     subject = new Subject(1)
@@ -38,18 +38,18 @@ describe "ContinuousSignal", ->
 
     vals1 = []
     vals2 = []
-    subscription1 = signal.subscribe (val) ->
+    unsubscribe1 = signal.subscribe (val) ->
       vals1.push val
-    subscription2 = signal.subscribe (val) ->
+    unsubscribe2 = signal.subscribe (val) ->
       vals2.push val
     subject.send 10
     assert.deepEqual vals1, [1, 10]
     assert.deepEqual vals2, [1, 10]
 
-    subscription1.remove()
+    unsubscribe1()
     subject.send 20
 
     assert.deepEqual vals1, [1, 10]
     assert.deepEqual vals2, [1, 10, 20]
 
-    subscription2.remove()
+    unsubscribe2()
