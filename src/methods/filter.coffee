@@ -6,3 +6,4 @@ module.exports = (pred) ->
     signal.subscribe (val) ->
       if pred val
         send val
+      return
