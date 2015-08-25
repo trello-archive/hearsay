@@ -36,6 +36,7 @@
     unsubscribe = signal.subscribe(/* ... */);
     unsubscribe();
     ```
+- The mixin will now attach the keys `_hearsay_subscriptions` and `_hearsay_using` to objects it's mixed into. It will no longer attach `_hearsay_observations`. The values stored in these keys should still be considered private to the Hearsay library.
 
 ## Additions
 

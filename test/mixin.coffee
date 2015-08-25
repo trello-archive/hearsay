@@ -2,6 +2,7 @@
 HearsayMixin = require 'hearsay/mixin'
 Slot = require 'hearsay/slot'
 Person = require 'person'
+defer = require 'util/defer'
 
 mixin = (obj, klass) ->
   for key, value of obj
@@ -46,6 +47,31 @@ describe "Mixin", ->
       john.name.set "Jonathan"
       manager.unsubscribe()
       assert.deepEqual manager.names, ["John", "Jonathan"]
+
+  describe "using", ->
+    it "returns the original signal", ->
+      mixin HearsayMixin, (class Manager)
+      manager = new Manager()
+      slot = new Slot(1)
+      assert slot == manager.using(slot)
+      manager.stopUsing()
+
+    it "prevents signals from being disposed", ->
+      mixin HearsayMixin, (class Manager)
+      manager = new Manager()
+      disposed = false
+      slot = new Slot(1).addDisposer -> disposed = true
+      manager.using(slot)
+      assert !disposed
+
+      defer()
+      .tap ->
+        assert !disposed
+        manager.stopUsing()
+        assert !disposed
+        defer()
+      .tap ->
+        assert disposed
 
   describe "subscribeChanges", ->
     it "tracks subscriptions", ->
