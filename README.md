@@ -288,11 +288,19 @@ You can pass `watch` either a string of dot-separated keypaths or an array of st
 
 The last argument is the context with which the callback will be invoked.
 
-## Mixin
+# Mixin
 
 A potentially nicer way to use `Slot`s is as a mixin on your objects, as it can make cleanup easier.
 
-This will introduce the `subscribe`, `subscribeChanges`, `watch`, and `unsubscribe` methods. It will also attach the key `_hearsay_observations` that is used to track private state.
+In addition to the methods listed below, it will also attach the keys `_hearsay_subscriptions` and `_hearsay_using` which it uses to maintain private state.
+
+## `subscribe`
+
+[See tests.](./test/mixin.coffee)
+
+## `subscribeChanges`
+
+[See tests.](./test/mixin.coffee)
 
 ## `watch`
 
@@ -314,4 +322,15 @@ Removes all observations created via `this.subscribe`, `this.subscribeChanges`, 
 For more fine-grained cleanup, hold onto the return value from `this.subscribe`, `this.subscribeChanges`, or `this.watch` and invoke its `remove` method.
 
 ## `using`
+
+Invoking `this.using(signal)` is like invoking `signal.use()`, except that it returns the signal you passed it and stores the `stopUsing` function internally, to be called when you invoke `stopUsing`.
+
+Unlike the `subscribe` family of methods, you cannot stop using signals one at a time when you use this method. You can only stop using them all at once with `stopUsing`.
+
 ## `stopUsing`
+
+Like, `unsubscribe`, but for `using` calls.
+
+## `slot`
+
+`this.slot(val)` is just shorthand for `this.using(new Slot(val))`.
