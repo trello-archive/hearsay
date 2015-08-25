@@ -6,7 +6,7 @@
     - The return value from the setup function passed to the `Signal` or `ContinuousSignal` constructors is now significant. Since you shouldn't have been returning anything from these functions before, this is unlikely to break your code. However, if you're using a language like CoffeeScript which inserts implicit returns, you may need to update your code.
     - Signals can now enter into a "disposed" state. See [the readme](./README.md) for details on what that entails.
     - If you were holding onto signals that you were not subscribing to, you may need to add `use` calls to your code.
-- Added two new functions to the mixin, `using` and `stopUsing`. Be aware that these could cause name collisions, so check anywhere that's using the mixin.
+- Added three new functions to the mixin: `slot`, `using`, and `stopUsing`. Be aware that these could cause name collisions, so check anywhere that's using the mixin.
 - Renamed `switch` to `if`.
 - Changed the arguments to the `ContinuousSignal` constructor. Instead of:
 

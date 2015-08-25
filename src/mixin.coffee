@@ -1,6 +1,7 @@
 uniqueKey = require './utils/uniqueKey'
 watch = require './watch'
 subscribeChanges = require './methods/subscribe-changes'
+Slot = require './slot'
 
 hasProp = (obj, prop) ->
   Object.hasOwnProperty.call(obj, prop)
@@ -21,6 +22,8 @@ module.exports =
     @_hearsay_using ?= []
     @_hearsay_using.push signal.use()
     signal
+
+  slot: (val) -> @using(new Slot(val))
 
   subscribeChanges: (signal, callbacks) ->
     remember this, subscribeChanges.call(signal, callbacks, this)

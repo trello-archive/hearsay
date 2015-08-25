@@ -73,6 +73,32 @@ describe "Mixin", ->
       .tap ->
         assert disposed
 
+  describe "slot", ->
+    it "returns a slot", ->
+      mixin HearsayMixin, (class Manager)
+      manager = new Manager()
+      assert(manager.slot() instanceof Slot)
+      manager.stopUsing()
+
+    it "returns a used signal", ->
+      mixin HearsayMixin, class Manager
+        constructor: ->
+          @name = @slot("Mary")
+
+      manager = new Manager()
+      disposed = false
+      manager.name.addDisposer -> disposed = true
+      assert !disposed
+
+      defer()
+      .tap ->
+        assert !disposed
+        manager.stopUsing()
+        assert !disposed
+        defer()
+      .tap ->
+        assert disposed
+
   describe "subscribeChanges", ->
     it "tracks subscriptions", ->
       mixin HearsayMixin, class Manager
