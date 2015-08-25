@@ -16,4 +16,8 @@ module.exports = class ContinuousSignal extends Signal
     fn.call context, @get()
     super
 
+  _dispose: ->
+    delete @_val
+    super
+
   derivedType: ContinuousSignal
