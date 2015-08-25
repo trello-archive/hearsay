@@ -49,6 +49,7 @@ module.exports = class Signal
     @_disposed = true
     for disposer in @_disposers when typeof disposer != 'undefined'
       disposer()
+    delete @_disposers
     return
 
   subscribe: (fn, context) ->
