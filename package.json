@@ -1,7 +1,7 @@
 {
   "name": "hearsay",
   "description": "Library for observing things.",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "author": "Ian Henry <ianthehenry@gmail.com>",
   "scripts": {
     "build-browser-min": "mkdir browser; browserify src/index.coffee --extension .coffee --standalone Hearsay -t coffeeify -t uglifyify -o browser/hearsay.min.js",
