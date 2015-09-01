@@ -52,7 +52,8 @@ To see when this can be useful, let's consider an example: say we're writing an 
 var Person = Backbone.Model.extend({
   getName: function() {
     var self = this;
-    return new ContinuousSignal(self.get('name'), function(send) {
+    return new ContinuousSignal(function(send) {
+      send(self.get('name'));
       self.on('change:name', function(_, name) {
         send(name);
       });
@@ -71,13 +72,14 @@ In the Backbone case, our disposer would look like this:
 var Person = Backbone.Model.extend({
   getName: function() {
     var self = this;
-    return new ContinuousSignal(self.get('name'), function(send) {
+    return new ContinuousSignal(function(send) {
+      send(self.get('name'));
       var listener = function(_, name) {
         send(name);
       };
       self.on('change:name', listener);
       return function() {
-        self.off('change:name', listener);
+        self.off(listener);
       };
     });
   }
